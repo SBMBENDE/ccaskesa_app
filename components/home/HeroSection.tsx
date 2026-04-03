@@ -68,7 +68,7 @@ export default function HeroSection() {
 
           {/* Tagline */}
           <p className="text-lg sm:text-xl font-semibold text-sky-200 tracking-wide mb-4">
-            Empowering Students. Transforming Futures.
+            Empowering Students - Transforming Futures.
           </p>
 
           {/* Subtitle */}
