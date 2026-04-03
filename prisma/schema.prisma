@@ -1,0 +1,116 @@
+// CCASKESA Alumni Association - Prisma Schema
+// Supports multi-branch (multi-tenant) architecture
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("MEMBER")
+  avatar    String?
+  branch    String?
+  country   String?
+  bio       String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  posts     Post[]
+}
+
+model Post {
+  id         String   @id @default(cuid())
+  title      String
+  slug       String   @unique
+  content    String
+  excerpt    String?
+  coverImage String?
+  published  Boolean  @default(false)
+  authorId   String
+  author     User     @relation(fields: [authorId], references: [id])
+  branch     String?
+  tags       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Project {
+  id           String    @id @default(cuid())
+  title        String
+  description  String
+  status       String    @default("ONGOING")
+  image        String?
+  branch       String?
+  category     String?
+  targetAmount Float?
+  raisedAmount Float?    @default(0)
+  location     String?
+  startDate    DateTime?
+  endDate      DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Donation {
+  id        String   @id @default(cuid())
+  amount    Float
+  currency  String   @default("EUR")
+  donorName String?
+  email     String?
+  method    String
+  message   String?
+  projectId String?
+  status    String   @default("PENDING")
+  reference String?
+  createdAt DateTime @default(now())
+}
+
+model Newsletter {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  branch    String?
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+}
+
+model GalleryItem {
+  id          String   @id @default(cuid())
+  title       String
+  imageUrl    String
+  description String?
+  branch      String?
+  category    String?
+  createdAt   DateTime @default(now())
+}
+
+model Scholar {
+  id        String   @id @default(cuid())
+  name      String
+  school    String
+  level     String
+  status    String   @default("ACTIVE")
+  startYear Int
+  endYear   Int?
+  branch    String?
+  story     String?
+  photo     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  title     String
+  message   String
+  type      String   @default("INFO")
+  branch    String?
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
