@@ -16,6 +16,7 @@ const NAV_LINKS = [
   { href: '/blog', label: 'Updates' },
   { href: '/donate', label: 'Donate', highlight: true },
   { href: '/community', label: 'Community' },
+  { href: '/events', label: 'Events' },
   { href: '/gallery', label: 'Gallery' },
   { href: '/branches', label: 'Branches' },
 ];
