@@ -2,19 +2,10 @@
 // npm install --save-dev prisma dotenv
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
-import { createClient } from "@libsql/client";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
 
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
-  },
-  datasource: {
-    adapter: () => {
-      const url = process.env.DATABASE_URL!;
-      const client = createClient({ url });
-      return new PrismaLibSql(client);
-    },
   },
 });
